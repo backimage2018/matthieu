@@ -198,7 +198,19 @@ form input {
 <input type="submit" name="modifier" value="Modifier"  <?php echo $activation; ?>>
 <input type="submit" name="supprimer" value="Supprimer"  <?php echo $activation; ?>>
 
+<?php 
 
+$roger = new personnage();
+$roger -> setNickname("Roger");
+$zobe = new magicien();
+$zobe -> setNickname("Zobe");
+
+$zobe -> bouleDeFeu($roger);
+$roger -> showMeYourSwag();
+
+
+
+?>
 
 </form>
 
