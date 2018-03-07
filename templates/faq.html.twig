@@ -1,0 +1,43 @@
+{% extends "base.html.twig" %}
+	
+	{# STYLESHEET #}
+
+	{# HEADER #}
+
+	{# NAVIGATION #}
+	
+	{% block breadcrumb %}
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="{{ path('index') }}">Home</a></li>
+				<li class="active">F.A.Q</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+	{% endblock %}
+
+	{% block faqs %}
+	<!-- section -->
+	<div class="container">
+    	<div class="col-md-12">
+            <div class="order-summary clearfix">
+                <div class="section-title">
+                   <h3 class="title">F.A.Q</h3>
+                </div>
+                {% for faq in faqComplete %}
+                <span><strong>{{ faq.questions}}</strong></span>
+				<p>{{ faq.reponses }}</p><br>
+				{% endfor %}
+            </div>
+        </div>
+    </div>
+	<!-- /section -->
+	{% endblock %}
+
+	{# FOOTER #}
+	
+	{# JAVASCRIPT #}
+	

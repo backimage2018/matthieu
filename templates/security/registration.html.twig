@@ -1,0 +1,86 @@
+{% extends "base.html.twig" %}
+	
+	{# STYLESHEET #}
+
+	{# HEADER #}
+
+	{# NAVIGATION #}
+	
+	{% block breadcrumb %}
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">Register</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+	{% endblock %}
+
+	{% block formSignIn %}	
+	<!-- section -->
+	
+	<div class="section">
+		<!-- container -->
+		<div class="container">
+			<!-- row -->
+			<div class="row">
+    			
+    			<div class="col-md-6">
+                	
+                	 {{ form_start(form, {'attr':{'class':'clearfix','id':'checkout-form'}}) }}
+                		
+                      	<div class="billing-details">
+                        <div class="section-title">
+                          <h3 class="title">Sign In</h3>
+                        </div>
+                        <div class="form-group">
+                        	{% if not form.vars.valid %}
+                        	    {% for child in form.children %}
+                        	    	{% for error in child.vars.errors %}
+                        	    		{{ error.message }}
+                        	    	{% endfor %}
+                        	    {% endfor %}
+                        	{% endif %}										
+                        	<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras pretium, arcu eu interdum molestie, magna enim iaculis tortor, id congue dui eros nec ex. Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                        	
+                        </div>
+                        <div class="form-group">
+                        	{{ form_widget(form.username,{'attr':{'class':'input','placeholder':'Username'}}) }}
+                          
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(form.email,{'attr':{'class':'input','placeholder':'Enter Your email'}}) }}
+                        	
+                        </div>
+                        <div class="form-group">
+                            {{ form_widget(form.plainPassword.first,{'attr':{'class':'input','placeholder':'Enter Your Password'}}) }}
+                        	
+                        </div>
+                        <div class="form-group">
+                        	{{ form_widget(form.plainPassword.second,{'attr':{'class':'input','placeholder':'Confirm Your Password'}}) }}
+                        	
+                        </div>
+                        <div class="pull-right">
+                          <button type="submit" class="primary-btn">Sign</button>
+                        </div>
+                      	</div>
+                      	
+                  	{{ form_end(form) }}
+                  	
+                </div>
+    			
+			</div>
+			<!-- /row -->
+		</div>
+		<!-- /container -->
+	</div>
+	<!-- /section -->
+	{% endblock %}
+
+	{# FOOTER #}
+	
+	{# JAVASCRIPT #}
+	

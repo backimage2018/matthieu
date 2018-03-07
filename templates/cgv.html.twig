@@ -1,0 +1,40 @@
+{% extends "base.html.twig" %}
+	
+	{# STYLESHEET #}
+
+	{# HEADER #}
+
+	{# NAVIGATION #}
+	
+	{% block breadcrumb %}
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">C.G.V</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+	{% endblock %}
+
+	{% block listeCgv %}
+	<!-- section -->
+	<div class="container">
+    	<div class="col-md-12">
+            <div class="order-summary clearfix">
+                <div class="section-title">
+                   <h3 class="title">C.G.V</h3>
+                </div>
+				<p>{{ cgvs.msg }}</p>
+            </div>
+        </div>
+    </div>
+	<!-- /section -->
+	{% endblock %}
+
+	{# FOOTER #}
+	
+	{# JAVASCRIPT #}
+	

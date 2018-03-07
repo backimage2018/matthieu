@@ -1,0 +1,47 @@
+{% extends "base.html.twig" %}
+	
+	{# STYLESHEET #}
+
+	{# HEADER #}
+
+	{# NAVIGATION #}
+	
+	{% block breadcrumb %}
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="#">Home</a></li>
+				<li class="active">Stores</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+	{% endblock %}
+
+	{% block listStores %}
+		<div class="container">
+			<div class="row">
+	         <div class="col-md-6">
+              <div class="shiping-methods">
+                <div class="section-title">
+                  <h4 class="title">Stores List</h4>
+                </div>
+                {% for store in stores %}
+                <div class="input-checkbox">
+                  <h3>{{ store.ville }}</h3>
+                  <div>
+                    <p>{{ store.adresse }}<p>
+                  </div>
+                </div>
+                {% endfor %}
+              </div>
+            </div>
+            </div>
+        </div>
+	{% endblock %}
+
+	{# FOOTER #}
+	
+	{# JAVASCRIPT #}
+	

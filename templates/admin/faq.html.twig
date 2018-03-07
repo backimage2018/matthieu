@@ -1,0 +1,50 @@
+{% extends "base.html.twig" %}
+{# STYLESHEET #}
+{% block header %}{% endblock %}
+{% block navigation %}{% endblock %}
+{% block breadcrumb %}
+	<!-- BREADCRUMB -->
+	<div id="breadcrumb">
+		<div class="container">
+			<ul class="breadcrumb">
+				<li><a href="{{ path('index') }}">Index</a></li>
+				<li><a href="{{ path('admin') }}">Admin</a></li>
+				<li class="active">Register Faq</li>
+			</ul>
+		</div>
+	</div>
+	<!-- /BREADCRUMB -->
+{% endblock %}
+{% block formAdminFaq %}
+<div class="section">
+	<div class="container">
+    	<div class="row">
+    	{{ form_start(form, {'attr':{'class':'clearfix'}}) }}
+    	<div class="billing-details admin-products-form">
+        	<div class="section-title"><h3 class="title">Register Faq</h3></div>
+    		<div class="col-xs-12">
+    			<div class="form-group">
+                        {{ form_widget(form.questions,{'attr':{'class':'input','placeholder':'New Question','maxlength':'255'}}) }}
+    			</div>
+    			<div class="form-group">
+                        {{ form_widget(form.reponses,{'attr':{'class':'input','placeholder':'New Reponse'}}) }}
+    			</div>
+    			<button type="submit" class="primary-btn full">Send</button><br><br>
+    		</div>	
+    		<div class="col-xs-12">
+    		{% if faqComplete == true %}
+    			{% for faq in faqComplete %}
+    			<span><strong>{{ faq.questions }}</strong></span>
+                <p>{{ faq.reponses }}</p>
+    			{% endfor %}
+    		{% else %}
+    		{% endif %}
+    		</div>
+    	</div>
+    	{{ form_end(form) }}
+		</div>
+	</div>
+</div>
+{% endblock %}
+{% block footer %}{% endblock %}
+{# JAVASCRIPT #}
