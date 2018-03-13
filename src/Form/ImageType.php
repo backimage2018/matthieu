@@ -13,10 +13,10 @@ class ImageType extends AbstractType
     {
          
         $builder
-        ->add('url', FileType::class);
+        ->add('image', FileType::class);
     }
     
-    public function configurerOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
             'data_class'=>Image::class

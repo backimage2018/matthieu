@@ -14,122 +14,117 @@ use Doctrine\DBAL\Types\DateTimeType;
 
 class Products
 {
- 
-    
+
+
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
     private $id;
-    
+
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="Review")
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="products", cascade={"persist"}, fetch="EXTRA_LAZY")
      */
-    private $products;
-    
+    private $reviews;
+
     /**
      * @ORM\Column(type="string", nullable=true ,length=3)
      */
     private $status;
-    
+
     /**
-     * @ORM\Column(type="string", nullable=true, length=255)
+     * @ORM\Column(type="string", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\File(mimeTypes={"image/jpeg","image/png"})
      */
     private $image;
-    
-    /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
-     */
-    private $imageobj;
 
     /**
      * @ORM\Column(type="string", nullable=true ,length=10)
      */
     private $soldes;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true ,length=10)
      */
     private $prixAvant;
-    
+
     /**
      * @ORM\Column(type="string", nullable=false ,length=10)
      */
     private $prixActuel;
-    
+
     /**
      * @ORM\Column(type="string", nullable=false ,length=50)
      * @Assert\NotBlank()
      */
     private $nomDelArticle;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true ,length=10)
      */
     private $taille;
-    
+
     /**
      * @ORM\Column(type="string", nullable=true ,length=10)
      * @Assert\Blank()
      */
     private $color;
-    
+
     /**
      * @ORM\Column(type="string", nullable=false ,length=30)
      */
     private $collection;
-    
+
     /**
      * @ORM\Column(type="string", nullable=false ,length=30)
      * @Assert\NotBlank()
      */
     private $marque;
-    
+
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\NotBlank()
      */
     private $description;
-    
+
     /**
      * @ORM\Column(type="text", nullable=true)
      * @Assert\NotBlank()
      */
     private $detail;
-    
+
     /**
      * @ORM\Column(type="string", nullable=false ,length=50)
      * @Assert\NotBlank()
      */
     private $categorie;
-    
+
     /**
      * @ORM\Column(type="boolean", nullable=true)
      */
-    private $display;
-    
-    /**
-     * @ORM\Column(type="boolean", nullable=true)
-     */
-    private $avaibility;   
-    
+    private $avaibility;
+
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    
+
     private $countdowndate;
-    
+
+
     use TechnicalFields;
 
-    public function getImageobj()
+
+    public function getReviews()
     {
-        return $this->imageobj;
+        return $this->reviews;
     }
 
-    public function setImageobj($imageobj)
+
+    public function setReviews($reviews)
     {
-        $this->imageobj = $imageobj;
+        $this->reviews = $reviews;
     }
 
     public function getImage()
@@ -187,11 +182,6 @@ class Products
         return $this->categorie;
     }
 
-    public function getDisplay()
-    {
-        return $this->display;
-    }
-
     public function getAvaibility()
     {
         return $this->avaibility;
@@ -230,11 +220,6 @@ class Products
     public function setCategorie($categorie)
     {
         $this->categorie = $categorie;
-    }
-
-    public function setDisplay($display)
-    {
-        $this->display = $display;
     }
 
     public function setAvaibility($avaibility)
@@ -300,6 +285,6 @@ class Products
     public function setNomDelArticle($nomDelArticle)
     {
         $this->nomDelArticle = $nomDelArticle;
-    }   
-    
+    }
+
 }

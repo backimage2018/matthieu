@@ -18,9 +18,9 @@ class ReviewType extends AbstractType
         ->add('message', TextareaType::class);
     }
     
-    public function configurationOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault(array(
+        $resolver->setDefaults(array(
             'data_class'=> Review::class
         ));
     }

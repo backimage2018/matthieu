@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Component\Routing\Annotation\Route;
 use Doctrine\ORM\Mapping\HasLifecycleCallbacks;
+use Symfony\Component\Form\FormTypeInterface;
 
 /**
  * @ORM\Table(name="app_review")
@@ -29,20 +30,12 @@ class Review
     private $message;
     
     /**
-     * @ORM\Column(type="string", length=25)
-     * @Assert\NotBlank()
-     */
-    private $username;
-    
-    /**
-     * @ORM\Column(type="datetime", nullable=true)
-     */
-    private $dateReview;
-    
-    /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Products", inversedBy="products")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Products", inversedBy="reviews", fetch="EXTRA_LAZY")
+     * @ORM\JoinColumn(nullable=true)
      */
     private $products;
+    
+    use TechnicalFields;
     
     public function getId()
     {
@@ -54,15 +47,6 @@ class Review
         return $this->message;
     }
 
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    public function getDateReview()
-    {
-        return $this->dateReview;
-    }
 
 
     public function setId($id)
@@ -75,15 +59,9 @@ class Review
         $this->message = $message;
     }
 
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
 
-    public function setDateReview($dateReview)
-    {
-        $this->dateReview = $dateReview;
-    }
+
+
     public function getProducts()
     {
         return $this->products;

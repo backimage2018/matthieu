@@ -11,7 +11,7 @@
 	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
-				<li><a href="#">Home</a></li>
+				<li><a href="{{ path('index') }}">Home</a></li>
 				<li class="active">Order</li>
 			</ul>
 		</div>
@@ -43,7 +43,7 @@
                         <tr>
                           <td class="thumb"><img src="{{ detail.lienImage }}" alt=""></td>
                           <td class="details">
-                            <a href="#">{{ detail.nom }}</a>
+                            <a href="{{ path('index') }}">{{ detail.nom }}</a>
                             <ul>
                               <li><span>Size: {{ detail.size }}</span></li>
                               <li><span>Color: {{ detail.color }}</span></li>

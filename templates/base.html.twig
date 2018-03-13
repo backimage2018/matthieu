@@ -20,35 +20,28 @@
     {% endblock %}
     <script>
 
-    	$(function(){
-
-    	    $(".navbar a, footer a").on("click", function(event){
-    	    
-    	        event.preventDefault();
-    	        var hash = this.hash;
-    	        
-    	        $('body,html').animate({scrollTop: $(hash).offset().top} , 900 , function(){window.location.hash = hash;})
-    	        
-    	    });
-
-
-            $('#btnNewsletter').on("click", function(event){
-        		event.preventDefault();
-        		console.log('hop');
-        		$.ajax({
-        			type:'post',
-        			url:'/newsletter',
-        			data:{email:$('#inputNewsletter').val()}
-        		}).done(function(result){
-        			console.log('retour');
-        			$('#inputNewsletter').html(result);	
-        		});
-            });
-            
-
-    	});
-    	
-    
+	$(document).ready(function(){
+		$("a[name='Newsletter']").click(function(event){
+    	    event.preventDefault();
+	        var position = $("#btnNewsletter").offset().top; 
+	        $('body,html').animate({scrollTop: position}, 900);
+	    });
+		
+		$('#btnNewsletter').click(function(event){
+	        event.preventDefault();
+	        console.log('coucou')
+	        $.ajax({
+	        	type:'post',
+	        	url:'/newsletter',
+	        	data:{email:$('#inputNewsletter').val()}
+	        }).done(function(result){
+	        	$('#inputNewsletter').html(result);	
+	        });
+	    });
+		
+	});
+		
+	
 
     </script>
 </head>
@@ -66,7 +59,7 @@
 				<div class="pull-right">
 					<ul class="header-top-links">
 						{% for topLink in topLinks %}
-						<li><a class="{{ topLink.classe }}" href="{{ topLink.link }}">{{ topLink.nom }}</a></li>
+						<li><a class="{{ topLink.classe }}" href="{{ topLink.link }}" name="{{ topLink.nom }}">{{ topLink.nom }}</a></li>
 						{% endfor %}
 						<li class="dropdown default-dropdown">
 							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">ENG <i class="fa fa-caret-down"></i></a>
@@ -97,7 +90,7 @@
 					<!-- Logo -->
 					<div class="header-logo">
 						<a class="logo" href="{{ path('index') }}">
-							<img src="./img/logo.png" alt="">
+							<img src="{{ asset('img/logo.png') }}" alt="">
 						</a>
 					</div>
 					<!-- /Logo -->
@@ -128,16 +121,16 @@
 								</div>
 								<strong class="text-uppercase">My Account<i class="fa fa-caret-down"></i></strong>
 							</div>
-							{% if app.user %}<a href="{{ path('profil') }}" class="text-uppercase">{{ app.user.username }}</a>{% else %}<a href="{{ path('login') }}" class="text-uppercase">Login</a>{% endif %} / {% if app.user %}<a href="{{ path('logout') }}" class="text-uppercase">Logout</a>{% else %}<a href="{{ path('user_registration') }}" class="text-uppercase">Register</a>{% endif %}
+							{% if app.user %}<a href="{{ path('profil') }}" class="text-uppercase">{{ app.user.username }}</a>{% else %}<a href="{{ path('login') }}" class="text-uppercase">{% trans %}Login{% endtrans %}</a>{% endif %} / {% if app.user %}<a href="{{ path('logout') }}" class="text-uppercase">{% trans %}Logout{% endtrans %}</a>{% else %}<a href="{{ path('user_registration') }}" class="text-uppercase">{% trans %}Register{% endtrans %}</a>{% endif %}
 							<ul class="custom-menu">
 							{% for myAccount in myAccounts %}
-								<li><a href="{{ myAccount.link }}#"><i class="fa {{ myAccount.cls }}"></i> {{ myAccount.reference }}</a></li>
+								<li><a href="{{ myAccount.link }}"><i class="fa {{ myAccount.cls }}"></i> {{ myAccount.reference }}</a></li>
 							{% endfor %}
 							{% if app.user %}
-		               		<li><a href="{{ path('logout') }}"><i class="fa fa-lock"></i>  Logout</a></li>
+		               		<li><a href="{{ path('logout') }}"><i class="fa fa-lock"></i>  {% trans %}Logout{% endtrans %}</a></li>
 		               	    {% else %}
-		               		<li><a href="{{ path('login') }}"><i class="fa fa-unlock-alt"></i> Login</a></li>
-		   					<li><a href="{{ path('user_registration') }}"><i class="fa fa-user-plus"></i> Create an account</a></li>
+		               		<li><a href="{{ path('login') }}"><i class="fa fa-unlock-alt"></i> {% trans %}Login{% endtrans %}</a></li>
+		   					<li><a href="{{ path('user_registration') }}"><i class="fa fa-user-plus"></i> {% trans %}Create an account{% endtrans %}</a></li>
 		   				    {% endif %}
 							</ul>
 						</li>
@@ -163,7 +156,7 @@
 											</div>
 											<div class="product-body">
 												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+												<h2 class="product-name"><a href="{{ path('index') }}">Product Name Goes Here</a></h2>
 											</div>
 											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
 										</div>
@@ -173,7 +166,7 @@
 											</div>
 											<div class="product-body">
 												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+												<h2 class="product-name"><a href="{{ path('index') }}">Product Name Goes Here</a></h2>
 											</div>
 											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
 										</div>
@@ -265,7 +258,7 @@
 					<div class="footer">
 						<!-- footer logo -->
 						<div class="footer-logo">
-							<a class="logo" href="#">
+							<a class="logo" href="{{ path('index') }}">
 		            <img src="./img/logo.png" alt="">
 		          </a>
 						</div>
@@ -356,13 +349,14 @@
 
 	{% block javascripts %}
 	<!-- jQuery Plugins -->
-	<script src="{{ asset('js/jquery.min.js') }}"></script>
+	
+	
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('js/slick.min.js') }}"></script>
 	<script src="{{ asset('js/nouislider.min.js') }}"></script>
 	<script src="{{ asset('js/jquery.zoom.min.js') }}"></script>
 	<script src="{{ asset('js/main.js') }}"></script>
-	<script src="{{ asset('js/countdown.js') }}"></script>
+	
 	{% endblock %}
 </body>
 

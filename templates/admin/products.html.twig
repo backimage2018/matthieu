@@ -53,9 +53,6 @@
                         {{ form_widget(form.image,{'attr':{'class':'input','placeholder':'Lien de votre image'}}) }}
     				</div>
                    <div class="form-group">
-                        {{ form_widget(form.imageobj.url) }}
-    				</div>
-                   <div class="form-group">
                         {{ form_widget(form.marque,{'attr':{'class':'input','placeholder':'Article marque'}}) }}
     				</div>
     				<div class="form-group">
@@ -66,9 +63,6 @@
     				</div>
     				<div class="form-group">
                         {{ form_widget(form.categorie,{'attr':{'class':'input','placeholder':'Watch / Cloths / Bags / Shoes...'}}) }}
-    				</div>
-    				<div class="form-group">
-                        {{ form_widget(form.display,{'attr':{'class':'input','placeholder':'Show article 1 / 0'}}) }}
     				</div>
     				<div class="form-group">
                         {{ form_widget(form.avaibility,{'attr':{'class':'input','placeholder':'Article avaibility 1 / 0'}}) }}
@@ -101,7 +95,7 @@
 								<li><span>00 S</span></li>
 							</ul>
                               <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                              <img src="{% if produit.imageobj is not null %}{{ produit.imageobj.url }}{% endif %}" alt="">
+                                {% if produit.image is not null %}<img src="{{ asset(produit.image)}}" alt="">{% endif %}
                             </div>
                             <div class="product-body">
                               <h3 class="product-price">${{ produit.prixActuel }}{% if produit.prixAvant is not null %}<del class="product-old-price">${{ produit.prixAvant }}</del>{% endif %}</h3>
@@ -114,7 +108,7 @@
                               </div>
                               <h2 class="product-name"><a href="/product-page/{{ produit.id  }}">{{ produit.nomDelArticle }}</a></h2>
                               <div class="product-btns">
-                                <a href="/admin/products-delete/{{ produit.id }}"></a><button class="main-btn icon-btn"><i class="fa fa-ban"></i></a></button>
+                                <a href="/admin/products-delete/{{ produit.id }}"><button class="main-btn icon-btn"><i class="fa fa-ban"></i></a></button>
                                 <a href="/admin/products/{{ produit.id }}"><button class="main-btn icon-btn"><i class="fa fa-cog"></i></a></button>
                               </div>
                             </div>

@@ -21,9 +21,9 @@ class FaqType extends AbstractType
         ->add('reponses', TextareaType::class);
     }
     
-    public function configurationOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefault(array(
+        $resolver->setDefaults(array(
            'data_class'=> Faq::class 
         ));
     }

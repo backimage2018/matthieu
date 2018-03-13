@@ -19,6 +19,7 @@ class FaqController extends Controller
         $form = $this->createForm(FaqType::class, $faq);
         $faqComplete = $this-> getDoctrine()-> getRepository(Faq::class)->findAll();
         $form->handleRequest($request);
+        
         if ($form-> isSubmitted() && $form->isValid())
         {
             $em = $this->getDoctrine()->getManager();

@@ -5,72 +5,75 @@ use App\Form\ProductsType;
 use App\Entity\Products;
 use App\Form\ReviewType;
 use App\Entity\Review;
+use App\Entity\TechnicalFields;
+use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Entity\Image;
 
-
 class ProductsController extends Controller
 {
+
     /**
      * @Route("/admin/products/new", name="admin_products")
      */
-    
     public function registerProducts(Request $request)
     {
-        var_dump($request->request);
         $products = new Products();
         $imageobj = new Image();
         
         $form = $this->createForm(ProductsType::class, $products);
-        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAll();
+        $listeProduits = $this->getDoctrine()
+            ->getRepository(Products::class)
+            ->findAll();
         $form->handleRequest($request);
         
         if ($form->isSubmitted() && $form->isValid()) {
             
-            echo '<pre>';
-            var_dump($products->getImageobj());
-            echo '</pre>';
+            $file = $products->getImage()->getUrl();
+            $filename = $file->getClientOriginalName();
             
-            $file = $products -> getImageobj() -> getUrl();
-            $filename = $file -> getClientOriginalName();
+            $file->move($this->getParameter('upload_directory'), $filename);
+            $products->setImage($filename);
             
-            $file -> move(
-                $this -> getParameter('upload_directory'),
-                $filename
-            );
-            $imageobj->setUrl($filename);
-            $products->setImageobj($imageobj);
-
             $em = $this->getDoctrine()->getManager();
             $em->persist($products);
             $em->flush();
             
             return $this->redirectToRoute('admin_products');
-        
         }
         
         return $this->render('admin/products.html.twig', array(
-            'form'=> $form->createView(),
+            'form' => $form->createView(),
             'listeProduits' => $listeProduits
         ));
     }
-    
+
     /**
      * @Route("/admin/products/{id}", name="admin_products_load", requirements={"id" = "\d+"})
      */
-    
-    public function loadProducts(Request $request, $id)
+    public function loadProducts(Request $request, $id, ProductsRepository $productsRepository)
     {
         $param = [];
-        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAll();
-        $products = $this->getDoctrine()
+        $listeProduits = $this->getDoctrine()
             ->getRepository(Products::class)
-            ->find($id);
+            ->findAll();
+        
+        /** @var Products $products */
+        $products = $productsRepository->findOneOr404([
+            'id' => $id
+        ]);
+        // $products = $this->getDoctrine()
+        // ->getRepository(Products::class)
+        // ->find($id);
+        
         $param["products"] = $products;
+        
         $form = $this->createForm(ProductsType::class, $products);
+        // die("test");
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
@@ -78,68 +81,56 @@ class ProductsController extends Controller
             $em->persist($products);
             $em->flush();
             return $this->redirectToRoute('admin_products_load', array(
-                'id'=> $id
+                'id' => $id
             ));
         }
         $param["form"] = $form->createView();
         $param["listeProduits"] = $listeProduits;
         return $this->render("admin/products.html.twig", $param);
-        
     }
-    
+
     /**
      * @Route("/admin/products-delete/{id}", name="admin_products_delete", requirements={"id" = "\d+"})
      */
-    
     public function deleteProducts(Request $request, $id)
     {
-        $param = [];
-        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAll();
-        $products = $this->getDoctrine()
-        ->getRepository(Products::class)
-        ->find($id);
-        $param["products"] = $products;
-        $form = $this->createForm(ProductsType::class, $products);
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $em = $this->getDoctrine()->getManager();
-            $em->remove($products);
-            $em->flush();
-            return $this->redirectToRoute('admin_products');
-        }
-        $param["form"] = $form->createView();
-        $param["listeProduits"] = $listeProduits;
-        return $this->render("admin/products.html.twig", $param);
+        // $param = [];
+        // $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAll();
+        // $products = $this->getDoctrine()
+        // ->getRepository(Products::class)
+        // ->find($id);
+        // $param["products"] = $products;
+        // $form = $this->createForm(ProductsType::class, $products);
+        // $form->handleRequest($request);
+        // if ($form->isSubmitted() && $form->isValid()) {
+        // $em = $this->getDoctrine()->getManager();
+        // $em->remove($products);
+        // $em->flush();
+        // return new Response("Deleted");
+        // }
+        // $param["form"] = $form->createView();
+        // $param["listeProduits"] = $listeProduits;
+        // return $this->render("admin/products.html.twig", $param);
+        $product = $this->getDoctrine()
+            ->getRepository(Products::class)
+            ->find($id);
+        $em = $this->getDoctrine()->getManagerForClass(Products::class);
+        $em->remove($product);
+        $em->flush();
+        return new Response("Deleted");
     }
-    
+
     /**
      * @Route("/product-page/{id}", name="product_page" ,requirements = {"id" = "\d+"})
      */
-    
-    function productPage($id) {
-        
-        $review = new Review();
-        $form = $this->createForm(Review::class, $review);
-        $form -> handleRequest($request);
-        
-        $reviewListe = $this-> getDoctrine()-> getRepository(Review::class)->findAll();
-        $produit = $this-> getDoctrine()-> getRepository(Products::class)-> find($id);
-        
-        if($form-> isSubmitted()&& $form->isValid())
-        {
-            $em = $this->getDoctrine()->getManager();
-            $em -> persist($review);
-            $em -> flush();
-            
-            return $this->redirectToRoute('product_page', array(
-                'id'=>$id
-            ));
-        }
+    function productPage(Request $request, $id)
+    {
+        $produit = $this->getDoctrine()
+            ->getRepository(Products::class)
+            ->find($id);
         
         return $this->render('product-page.html.twig', array(
-            'reviewListe'=> $reviewListe,
             'produit' => $produit,
-            'reviews' => json_decode(Data::reviews),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
             'categorieSearchs' => json_decode(Data::categorieSearchs),
@@ -151,8 +142,9 @@ class ProductsController extends Controller
             'topLinks' => json_decode(Data::topLinks)
         ));
     }
-    
+
     /**
+     *
      * @return string
      */
     private function generateUniqueFileName()
@@ -161,22 +153,27 @@ class ProductsController extends Controller
         // uniqid(), which is based on timestamps
         return md5(uniqid());
     }
-    
+
     /**
-     * @Route("admin/product2", name="products2")
+     * @Route("/product-page/{id}/review/add", name="add_review",requirements = {"id" = "\d+"})
      */
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    function addReview(Request $request, $id)
+    {
+        $rep = $this->getDoctrine()->getRepository(Products::class);
+        $review = new Review();
+        $products = $rep->find($id);
+        
+        $message = $request->request->get('message');
+        $review->setMessage($message);
+        
+        $products->getReviews()[] = $review;
+        $review->setProducts($products);
+        
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($products);
+        $em->flush();
+        return $this->redirectToRoute('product_page', array(
+            'id' => $id
+        ));
+    }
 }

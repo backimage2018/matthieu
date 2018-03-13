@@ -133,7 +133,7 @@ trait TechnicalFields {
      */
     public function onPreDelete()
     {
-        $this->delete_date = new \DateTime("now");
+        
     }
     
     

@@ -6,6 +6,7 @@ use App\Form\NewsletterType;
 use App\Entity\Newsletter;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
 class NewsletterController extends Controller
@@ -22,11 +23,25 @@ class NewsletterController extends Controller
         $newsletter = new Newsletter();
         $newsletter -> setEmail($email);
         
-        $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManagerForClass(Newsletter::class);
         $em -> persist($newsletter);
         $em -> flush();
         
         return $this->json($newsletter->getEmail());        
+    }
+    
+    /**
+     * @Route("newsletter/delete/{id}", requirements={"id" = "\d+"})
+     */
+    
+    public function deleteNewsletter(Request $request, $id) {
+        $newsletter = $this->getDoctrine()->getRepository(Newsletter::class)->find($id);
+        
+        $em = $this->getDoctrine()->getManagerForClass(Newsletter::class);
+        $em->remove($newsletter);
+        $em->flush();
+        
+        return new Response("Deleted");
     }
     
 }

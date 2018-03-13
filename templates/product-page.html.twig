@@ -11,9 +11,9 @@
 	<div id="breadcrumb">
 		<div class="container">
 			<ul class="breadcrumb">
-				<li><a href="#">Home</a></li>
-				<li><a href="#">Products</a></li>
-				<li><a href="#">Category</a></li>
+				<li><a href="{{ path('index') }}">Home</a></li>
+				<li><a href="{{ path('index') }}">Products</a></li>
+				<li><a href="{{ path('index') }}">Category</a></li>
 				<li class="active">Product Name Goes Here</li>
 			</ul>
 		</div>
@@ -33,7 +33,7 @@
 					<div class="col-md-6">
 						<div id="product-main-view">
 							<div class="product-view">
-								<img src="{{ asset(''~produit.upload~'')}}" alt="">
+								<img src="{{ asset(''~produit.image~'')}}" alt="">
 							</div>
 							<div class="product-view">
 								<img src="/img/main-product02.jpg" alt="">
@@ -133,12 +133,10 @@
 									<div class="row">
 										<div class="col-md-6">
 											<div class="product-reviews">
-												{% for review in reviews%}
-												{{ loop.index }}
+												{% for review in produit.reviews %}
 												<div class="single-review">
 													<div class="review-heading">
-														<div><a href="#"><i class="fa fa-user-o"></i> {{ review.user }}</a></div>
-														<div><a href="#"><i class="fa fa-clock-o"></i> {{ review.date }}</a></div>
+														<div><a href="{{ path('index') }}"><i class="fa fa-user-o"></i> {{ app.user.username }}</a></div>
 														<div class="review-rating pull-right">
 															<i class="fa fa-star"></i>
 															<i class="fa fa-star"></i>
@@ -164,9 +162,9 @@
 											<h4 class="text-uppercase">Write Your Review</h4>
 											{% if app.user %}
 											<p>Your email address will not be published.</p>
-											{{ form_start(form, {'attr':{'class':'review-form'}}) }}
+											<form class="review-form" action="{{ produit.id }}/review/add" method="post">
 												<div class="form-group">
-													{{ form_widget(form.message,{'attr':{'class':'input','placeholder':'Your review'}}) }}
+													<input type="textarea" class="input" name="message" placeholder="Your review">
 												</div>
 												<div class="form-group">
 													<div class="input-rating">
@@ -181,7 +179,7 @@
 													</div>
 												</div>
 												<button class="primary-btn">Submit</button>
-											{{ form_end(form) }}
+											</form>
 											{% else %}
 											<p>You must be authenticated to leave a comment.</p>
 											{% endif %}
@@ -233,7 +231,7 @@
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+							<h2 class="product-name"><a href="{{ path('index') }}">Product Name Goes Here</a></h2>
 							<div class="product-btns">
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
@@ -263,7 +261,7 @@
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+							<h2 class="product-name"><a href="{{ path('index') }}">Product Name Goes Here</a></h2>
 							<div class="product-btns">
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
@@ -293,7 +291,7 @@
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+							<h2 class="product-name"><a href="{{ path('index') }}">Product Name Goes Here</a></h2>
 							<div class="product-btns">
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>
@@ -324,7 +322,7 @@
 								<i class="fa fa-star"></i>
 								<i class="fa fa-star-o empty"></i>
 							</div>
-							<h2 class="product-name"><a href="#">Product Name Goes Here</a></h2>
+							<h2 class="product-name"><a href="{{ path('index') }}">Product Name Goes Here</a></h2>
 							<div class="product-btns">
 								<button class="main-btn icon-btn"><i class="fa fa-heart"></i></button>
 								<button class="main-btn icon-btn"><i class="fa fa-exchange"></i></button>

@@ -88,36 +88,4 @@ class ImageController extends Controller
         ));
         
     }
-
-    /**
-     * @Route("admin/products2", name="products2")
-     */
-    public function test(Request $request){
-        $products2 = new Products2();
-        $form = $this->createForm(Products2Type::class, $products2);
-        $form->handleRequest($request);
-        
-        if ($form->isSubmitted() && $form->isValid()) {
-            $image = new Image();
-                        
-            $file = $products2 -> getImage() -> getUrl();
-            $filename = $file -> getClientOriginalName();
-            
-            $file -> move(
-                $this -> getParameter('upload_directory'),
-                $filename
-                );
-            $image->setUrl($filename);
-            $products2->setImage($image);
-            
-            $em = $this->getDoctrine()->getManager();
-            $em->persist($products2);
-            $em->flush();
-            
-            return $this->redirectToRoute('admin_products');
-            
-        }
-        $param["form"]= $form->createView();
-        return $this->render('products2.html.twig', $param);
-    }
 }

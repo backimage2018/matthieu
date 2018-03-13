@@ -15,7 +15,7 @@ class CommentsType extends AbstractType
         ->add('commentaires', TextareaType::class);
     }
     
-    public function configurerOptions(OptionsResolver $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
            'data_class'=>Comments::class
