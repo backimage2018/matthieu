@@ -575,7 +575,7 @@ textarea.input {
 }
 
 .menu-nav .menu-list>li>a:hover, .menu-nav .menu-list>li>a:focus, .menu-nav .menu-list>li.dropdown.open>a {
-  color: #F8694A;
+  color: #fff;
 }
 
 /*----------------------------*\
@@ -1704,6 +1704,14 @@ textarea.input {
 
 .txtCenter {
 	text-align:center;
+}
+
+.testy {
+	min-height:210px;
+}
+
+label[for="products_image_url"] {
+	display:none;
 }
 /*=========================================================
 	12 -> RESPONSIVE

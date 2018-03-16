@@ -27,6 +27,18 @@ class Image {
      */
     private $url;
     
+    private $urlName;
+    
+    public function getUrlName()
+    {
+        return $this->urlName;
+    }
+
+    public function setUrlName($urlName)
+    {
+        $this->urlName = $urlName;
+    }
+
     public function getId()
     {
         return $this->id;

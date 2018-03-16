@@ -7,9 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use App\Entity\Image;
-use App\Entity\Products2;
 use App\Form\ImageType;
-use App\Form\Products2Type;
 
 class ImageController extends Controller
 {
@@ -32,11 +30,7 @@ class ImageController extends Controller
             $filename = $file -> getClientOriginalName();
             
             /* Deplacer le fichier image dans un repertoire specifique */
-            $file -> move(
-                $this -> getParameter('upload_directory'),
-                $filename
-            );
-            
+            $file -> move($this -> getParameter('upload_directory'),$filename);
             $image->setUrl($filename);
             
             $em = $this->getDoctrine()->getManager();
@@ -47,9 +41,7 @@ class ImageController extends Controller
             
         }
         
-        return $this->render('admin/image.html.twig', array(
-            'form'=> $form->createView()
-        ));
+        return $this->render('admin/image.html.twig',['form'=> $form->createView()]);
     }
     
     
@@ -78,14 +70,10 @@ class ImageController extends Controller
             $em->persist($image);
             $em->flush();
             
-            return $this->redirectToRoute('image_show', array(
-                'id'=> $id
-            ));
+            return $this->redirectToRoute('image_show',['id'=> $id]);
         }
                 
-        return $this->render('admin/image.html.twig', array(
-            'form'=> $form->createView()
-        ));
+        return $this->render('admin/image.html.twig',['form'=> $form->createView()]);
         
     }
 }

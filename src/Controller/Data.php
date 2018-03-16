@@ -3,29 +3,18 @@ namespace App\Controller;
 
 class Data {
     
-    const welcome = '{
-            "message":"Welcome to E-shop motherf*cker!"
-        }';
-    
-    const cgvs = '{
-            "msg":"Voici les CGV"
-         }';
-    
-    const return = '{
-            "msg":"Si vous souhaitez nous renvoyer un colis procedez ainsi :..."
-        }';
-    
-    const guide = '{
-            "msg":"Si vous souhaitez obtenir plus d\'informations vous ne trouvez ici qu\'une amere deception."
-        }';
-   
-    
-    const stores = '[{
-	"ville": "Nîmes",
-	"adresse": "Lorem ipsum dolor sit amet"
-    }, {
-	"ville": "Montpellier",
-	"adresse": "Lorem ipsum dolor sit amet"
+    const welcome = '{"message":"Welcome to E-shop"}';
+    const cgvs = '{"msg":"Voici les CGV"}';
+    const return = '{"msg":"Si vous souhaitez nous renvoyer un colis procedez ainsi :..."}';
+    const guide = '{"msg":"Si vous souhaitez obtenir plus d\'informations vous ne trouvez ici qu\'une amere deception."}';
+    const stores = '[
+    {
+	   "ville": "Nîmes",
+	   "adresse": "Lorem ipsum dolor sit amet"
+    },
+    {
+	   "ville": "Montpellier",
+	   "adresse": "Lorem ipsum dolor sit amet"
     }]';
   
     const myAccounts = '[
@@ -37,12 +26,12 @@ class Data {
             {
                 "cls":"fa-heart-o",
                 "reference": "My Wishlist",
-                "link":"/whislist"
+                "link":"/"
             },
             {
                 "cls":"fa-exchange",
                 "reference": "Compare",
-                "link":"/compare"
+                "link":"/"
             },
             {
                 "cls":"fa-check",
@@ -55,19 +44,22 @@ class Data {
             {
                 "lang":"English",
                 "diminutif":"(ENG)",
-                "link":"#"
-            },{
+                "link":"/"
+            },
+            {
                 "lang":"Russian",
                 "diminutif":"(Ru)",
-                "link":"#"
-            },{
+                "link":"/"
+            },
+            {
                 "lang":"French",
                 "diminutif":"(FR)",
-                "link":"#"
-            },{
+                "link":"/"
+            },
+            {
                 "lang":"Spanish",
                 "diminutif":"(Es)",
-                "link":"#"
+                "link":"/"
             }
          ]';
     
@@ -75,26 +67,29 @@ class Data {
             {
                 "type":"USD",
                 "devise":"($)",
-                "link": "#"
-            },{
+                "link": "/"
+            },
+            {
                 "type":"EUR",
                 "devise":"(€)",
-                "link": "#"
+                "link": "/"
             }
          ]';
     
     const topLinks = '[
             {
                 "nom":"Store",
-                "link": "#",
+                "link": "/store",
                 "classe":"store"
-            },{
+            },
+            {
                 "nom":"Newsletter",
-                "link": "#newsletter",
+                "link": "#inputNewsletter",
                 "classe":"newsletter"
-            },{
+            },
+            {
                 "nom":"FAQ",
-                "link": "#",
+                "link": "/faq",
                 "classe":"faq"
             }
          ]';
@@ -103,81 +98,128 @@ class Data {
             {
                 "valeur":"0",
                 "titre":"All Categories"
-            },{
+            },
+            {
                 "valeur":"1",
-                "titre":"Category 01"
-            },{
+                "titre":"Bags"
+            },
+            {
                 "valeur":"2",
-                "titre":"Category 02"
+                "titre":"Shoes"
+            },
+            {
+                "valeur":"3",
+                "titre":"Clothing"
+            },
+            {
+                "valeur":"4",
+                "titre":"Phones"
+            },
+            {
+                "valeur":"5",
+                "titre":"Accessories"
+            },
+            {
+                "valeur":"6",
+                "titre":"Consumer"
+            },
+            {
+                "valeur":"7",
+                "titre":"Office"
+            },
+            {
+                "valeur":"8",
+                "titre":"Jewelry"
+            },
+            {
+                "valeur":"9",
+                "titre":"Watches"
+            },
+            {
+                "valeur":"10",
+                "titre":"Electronics"
             }
         ]';
     
     const categorieListes = '[
             {
-                "link":"#",
+                "link":"/",
                 "categorie":"Women\'s Clothing"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/",
                 "categorie":"Men\'s Clothing"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/",
                 "categorie":"Phones & Accessories"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/",
                 "categorie":"Consumer & Office"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/",
                 "categorie":"Consumer Electronics"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/",
                 "categorie":"Jewelry & Watches"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/",
                 "categorie":"Bags & Shoes"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/",
                 "categorie":"View All"
             }
          ]';
     
     const categorieSocials = '[
             {
-                "link":"#",
+                "link":"https://www.facebook.com/",
                 "classe":"fa-facebook"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"https://twitter.com/?lang=fr",
                 "classe":"fa-twitter"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"https://www.instagram.com/?hl=fr",
                 "classe":"fa-instagram"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"https://plus.google.com/",
                 "classe":"fa-google-plus"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"https://www.pinterest.fr/",
                 "classe":"fa-pinterest"
             }
          ]';
     
     const footerServices = '[
             {
-                "link":"#",
+                "link":"/about",
                 "nom":"About Us"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/return",
                 "nom":"Shipping & Return"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/guide",
                 "nom":"Shiping Guide"
-            },{
-                "link":"#",
+            },
+            {
+                "link":"/faq",
                 "nom":"FAQ"
             }
         
          ]';
     
-    const aboutUs = '{
-        "msg": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue in tortor eget laoreet. Morbi commodo mi elit.Pellentesque interdum porttitor feugiat."}';
+    const aboutUs = '{"msg": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue in tortor eget laoreet. Morbi commodo mi elit.Pellentesque interdum porttitor feugiat."}';
     
     
     const reviews = '[

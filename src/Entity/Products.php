@@ -34,9 +34,7 @@ class Products
     private $status;
 
     /**
-     * @ORM\Column(type="string", nullable=true)
-     * @Assert\NotBlank()
-     * @Assert\File(mimeTypes={"image/jpeg","image/png"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Image", cascade={"persist"})
      */
     private $image;
 
@@ -116,15 +114,40 @@ class Products
     use TechnicalFields;
 
 
+    
+    public function getId()
+    {
+        return $this->id;
+    }
+    
+    public function getStatus()
+    {
+        return $this->status;
+    }
+    
+    public function getSoldes()
+    {
+        return $this->soldes;
+    }
+    
+    public function getPrixAvant()
+    {
+        return $this->prixAvant;
+    }
+    
+    public function getPrixActuel()
+    {
+        return $this->prixActuel;
+    }
+    
+    public function getNomDelArticle()
+    {
+        return $this->nomDelArticle;
+    }
+    
     public function getReviews()
     {
         return $this->reviews;
-    }
-
-
-    public function setReviews($reviews)
-    {
-        $this->reviews = $reviews;
     }
 
     public function getImage()
@@ -132,19 +155,9 @@ class Products
         return $this->image;
     }
 
-    public function setImage($image)
-    {
-        $this->image = $image;
-    }
-
     public function getCountdowndate()
     {
         return $this->countdowndate;
-    }
-
-    public function setCountdowndate($countdowndate)
-    {
-        $this->countdowndate = $countdowndate;
     }
 
     public function getTaille()
@@ -227,36 +240,6 @@ class Products
         $this->avaibility = $avaibility;
     }
 
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    public function getStatus()
-    {
-        return $this->status;
-    }
-
-    public function getSoldes()
-    {
-        return $this->soldes;
-    }
-
-    public function getPrixAvant()
-    {
-        return $this->prixAvant;
-    }
-
-    public function getPrixActuel()
-    {
-        return $this->prixActuel;
-    }
-
-    public function getNomDelArticle()
-    {
-        return $this->nomDelArticle;
-    }
-
     public function setId($id)
     {
         $this->id = $id;
@@ -287,4 +270,19 @@ class Products
         $this->nomDelArticle = $nomDelArticle;
     }
 
+    public function setCountdowndate($countdowndate)
+    {
+        $this->countdowndate = $countdowndate;
+    }
+    
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+    
+    public function setReviews($reviews)
+    {
+        $this->reviews = $reviews;
+    }
+    
 }

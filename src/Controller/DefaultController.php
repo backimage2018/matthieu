@@ -38,7 +38,7 @@ class DefaultController extends Controller {
             ->getRepository(Products::class)
             ->findBy(['status'=>'New']);
         
-        return $this->render('index.html.twig', array(
+        return $this->render('index.html.twig', [
             'dealOfTheDay' => $dealOfTheDay,
             'lastestProducts' => $lastProducts,
             'forYous' => $forYous,
@@ -51,7 +51,7 @@ class DefaultController extends Controller {
             'categorieSocials' => json_decode(Data::categorieSocials),
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome)
-        ));
+        ]);
     }
     
     /**
@@ -63,8 +63,7 @@ class DefaultController extends Controller {
         -> getRepository(Products::class)
         -> findAll();
         
-        return $this->render('products.html.twig', array(
-            
+        return $this->render('products.html.twig', [ 
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
             'langues' => json_decode(Data::langues),
@@ -75,8 +74,7 @@ class DefaultController extends Controller {
             'myAccounts' => json_decode(Data::myAccounts),
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome)
-            
-        ));
+        ]);
     }
     
    
@@ -86,7 +84,7 @@ class DefaultController extends Controller {
      */
     
     function checkout() {
-        return $this->render('checkout.html.twig', array(
+        return $this->render('checkout.html.twig', [
             'details' => json_decode(Data::details),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
@@ -98,7 +96,7 @@ class DefaultController extends Controller {
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
             
-        ));
+        ]);
         
     }
     
@@ -107,7 +105,7 @@ class DefaultController extends Controller {
      */
     
     function blank() {
-        return $this->render('blank.html.twig', array (
+        return $this->render('blank.html.twig', [
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
             'categorieSearchs' => json_decode(Data::categorieSearchs),
@@ -117,7 +115,7 @@ class DefaultController extends Controller {
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
     
     /**
@@ -125,7 +123,7 @@ class DefaultController extends Controller {
      */
     
     function card() {
-        return $this->render('card.html.twig', array (
+        return $this->render('card.html.twig', [
             'details' => json_decode(Data::details),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
@@ -136,7 +134,7 @@ class DefaultController extends Controller {
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
     
     /**
@@ -144,7 +142,7 @@ class DefaultController extends Controller {
      */
     
     function about() {
-        return $this->render('about.html.twig', array(
+        return $this->render('about.html.twig', [
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
             'categorieSearchs' => json_decode(Data::categorieSearchs),
@@ -155,7 +153,7 @@ class DefaultController extends Controller {
             'welcome' => json_decode(Data::welcome),
             'aboutUs' => json_decode(Data::aboutUs),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
     
     
@@ -164,7 +162,7 @@ class DefaultController extends Controller {
      */
     
     function profil() {
-        return $this->render('profil.html.twig', array(
+        return $this->render('profil.html.twig', [
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
             'categorieSearchs' => json_decode(Data::categorieSearchs),
@@ -174,7 +172,7 @@ class DefaultController extends Controller {
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
     
     /**
@@ -182,7 +180,7 @@ class DefaultController extends Controller {
      */
     
     function return() {
-        return $this->render('return.html.twig', array (
+        return $this->render('return.html.twig', [
             'return' => json_decode(Data::return),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
@@ -193,7 +191,7 @@ class DefaultController extends Controller {
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
     
     /**
@@ -201,7 +199,7 @@ class DefaultController extends Controller {
      */
     
     function guide() {
-        return $this->render('guide.html.twig', array (
+        return $this->render('guide.html.twig', [
             'guide' => json_decode(Data::guide),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
@@ -212,7 +210,7 @@ class DefaultController extends Controller {
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
     
     /**
@@ -220,7 +218,7 @@ class DefaultController extends Controller {
      */
     
     function store() {
-        return $this->render('store.html.twig', array (
+        return $this->render('store.html.twig', [
             'stores' => json_decode(Data::stores),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
@@ -231,7 +229,7 @@ class DefaultController extends Controller {
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
     
     /**
@@ -239,7 +237,7 @@ class DefaultController extends Controller {
      */
     
     function cgv() {
-        return $this->render('cgv.html.twig', array (
+        return $this->render('cgv.html.twig', [
             'cgvs' => json_decode(Data::cgvs),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
@@ -250,7 +248,7 @@ class DefaultController extends Controller {
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
     
     

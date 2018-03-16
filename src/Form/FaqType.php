@@ -23,8 +23,6 @@ class FaqType extends AbstractType
     
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-           'data_class'=> Faq::class 
-        ));
+        $resolver->setDefaults(['data_class' => Faq::class]);
     }
 }

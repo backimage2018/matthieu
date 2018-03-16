@@ -29,10 +29,7 @@ class FaqController extends Controller
             return $this->redirectToRoute('admin_faq');
         }
         
-        return $this->render('admin/faq.html.twig', array(
-           'form' => $form->createView(),
-           'faqComplete' => $faqComplete
-        ));
+        return $this->render('admin/faq.html.twig', ['form' => $form->createView(),'faqComplete' => $faqComplete]);
     }
     
     /**
@@ -43,7 +40,7 @@ class FaqController extends Controller
         
         $faqComplete = $this->getDoctrine()->getRepository(Faq::class)->findAll();
         
-        return $this->render('faq.html.twig', array (
+        return $this->render('faq.html.twig', [
             'faqComplete' => $faqComplete,
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
@@ -54,7 +51,7 @@ class FaqController extends Controller
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
     }
 
 }

@@ -5,10 +5,10 @@
     <div class="product-thumb">
       <div class="product-label">
         {% if produit.status is not null %}<span>{{ produit.status }}</span>{% endif %}
-        {% if produit.soldes is not null %}<span class="sale">{{ produit.soldes }}</span>{% endif %}
+        {% if produit.soldes is not null %}<span class="sale">{{ produit.soldes }}%</span>{% endif %}
       </div>
       <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-      <img src="{{ produit.image }}" alt="">
+      <img src="{{ asset('img/'~produit.image.url) }}" alt="">
     </div>
     <div class="product-body">
       <h3 class="product-price">${{ produit.prixActuel }}{% if produit.prixAncien is defined %}<del class="product-old-price">${{ produit.prixAncien }}</del>{% endif %}</h3>

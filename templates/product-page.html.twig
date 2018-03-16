@@ -13,8 +13,8 @@
 			<ul class="breadcrumb">
 				<li><a href="{{ path('index') }}">Home</a></li>
 				<li><a href="{{ path('index') }}">Products</a></li>
-				<li><a href="{{ path('index') }}">Category</a></li>
-				<li class="active">Product Name Goes Here</li>
+				<li><a href="{{ path('index') }}">{{ produit.categorie }}</a></li>
+				<li class="active">{{ produit.nomDelArticle }}</li>
 			</ul>
 		</div>
 	</div>
@@ -33,7 +33,7 @@
 					<div class="col-md-6">
 						<div id="product-main-view">
 							<div class="product-view">
-								<img src="{{ asset(''~produit.image~'')}}" alt="">
+								<img src="{{ asset('img/'~produit.image.url)}}" alt="">
 							</div>
 							<div class="product-view">
 								<img src="/img/main-product02.jpg" alt="">
@@ -65,7 +65,7 @@
 						<div class="product-body">
 							<div class="product-label">
 								{% if produit.status is not null %}<span>{{ produit.status }}</span>{% endif %}
-								{% if produit.soldes is not null %}<span class="sale">{{ produit.soldes }}</span>{% endif %}
+								{% if produit.soldes is not null %}<span class="sale">{{ produit.soldes }}%</span>{% endif %}
 							</div>
 							<h2 class="product-name">{{ produit.nomDelArticle }}</h2>
 							<h3 class="product-price">${{ produit.prixActuel }}{% if produit.prixAncien is defined %} <del class="product-old-price">${{ article.prixAvant }}</del>{% endif %}</h3>
@@ -77,10 +77,10 @@
 									<i class="fa fa-star"></i>
 									<i class="fa fa-star-o empty"></i>
 								</div>
-								<a href="#">3 Review(s) / Add Review</a>
+								<a href="#">Review(s) / Add Review</a>
 							</div>
-							<p><strong>Availability:</strong> {{ produit.avaibility }}</p>
-							<p><strong>Brand:</strong> {{ produit.marque }}</p>
+							{% if produit.avaibility == 1 %}<p><strong>Available</strong></p>{% else %}<div class="product-label"><span class="sale">Sold out</span></div><br>{% endif %}
+							<p><strong>{{ produit.marque }}</strong></p>
 							<p>{{ produit.description }}</p>
 							<div class="product-options">
 								<ul class="size-option">
@@ -99,11 +99,14 @@
 							</div>
 
 							<div class="product-btns">
+							    {% if produit.avaibility == 0 %}
+							    {% else %}
 								<div class="qty-input">
 									<span class="text-uppercase">QTY: </span>
 									<input class="input" type="number">
 								</div>
 								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+								{% endif %}
 								<div class="pull-right">
 									{% if is_granted('ROLE_ADMIN') %}
 									<button class="main-btn icon-btn"><a href="/admin/products/{{ produit.id }}"><i style="font-size: 16px;" class="fa fa-cog"></i></a></button>
@@ -120,15 +123,17 @@
 						<div class="product-tab">
 							<ul class="tab-nav">
 								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
-								<li><a data-toggle="tab" href="#tab1">Details</a></li>
-								<li><a data-toggle="tab" href="#tab2">Reviews (3)</a></li>
+								<li><a data-toggle="tab" href="#tab2">Details</a></li>
+								<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
 							</ul>
 							<div class="tab-content">
 								<div id="tab1" class="tab-pane fade in active">
-									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
-										irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+									<p>{{ produit.description }}</p>
 								</div>
 								<div id="tab2" class="tab-pane fade in">
+									<p>{{ produit.detail }}</p>
+								</div>
+								<div id="tab3" class="tab-pane fade in">
 
 									<div class="row">
 										<div class="col-md-6">
@@ -136,7 +141,7 @@
 												{% for review in produit.reviews %}
 												<div class="single-review">
 													<div class="review-heading">
-														<div><a href="{{ path('index') }}"><i class="fa fa-user-o"></i> {{ app.user.username }}</a></div>
+														<div><a href="{{ path('index') }}"><i class="fa fa-user-o"></i> {{ review.user.username }}</a></div>
 														<div class="review-rating pull-right">
 															<i class="fa fa-star"></i>
 															<i class="fa fa-star"></i>
@@ -178,7 +183,7 @@
 														</div>
 													</div>
 												</div>
-												<button class="primary-btn">Submit</button>
+												<button class="primary-btn">Envoyer</button>
 											</form>
 											{% else %}
 											<p>You must be authenticated to leave a comment.</p>

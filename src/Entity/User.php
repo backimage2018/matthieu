@@ -11,8 +11,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * @ORM\Table(name="app_users")
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
- * @UniqueEntity(fields="email", message="Email already taken bitch")
- * @UniqueEntity(fields="username", message="Username already taken bitch")
+ * @UniqueEntity(fields="email", message="Email already taken")
+ * @UniqueEntity(fields="username", message="Username already taken")
  */
 class User implements UserInterface, \Serializable
 {
@@ -37,6 +37,11 @@ class User implements UserInterface, \Serializable
     private $username;
     
     /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Review", mappedBy="user",cascade={"persist"}, fetch="EXTRA_LAZY")
+     */
+    private $reviewUsername;
+    
+    /**
      * @Assert\NotBlank()
      * @Assert\Length(max=4096)
      */
@@ -57,6 +62,16 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
     
+    public function getReviewUsername()
+    {
+        return $this->reviewUsername;
+    }
+
+    public function setReviewUsername($reviewUsername)
+    {
+        $this->reviewUsername = $reviewUsername;
+    }
+
     public function getId()
     {
         return $this->id;

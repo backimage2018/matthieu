@@ -17,8 +17,6 @@ class CommentsType extends AbstractType
     
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-           'data_class'=>Comments::class
-        ));
+        $resolver->setDefaults(['data_class' => Comments::class]);
     }
 }

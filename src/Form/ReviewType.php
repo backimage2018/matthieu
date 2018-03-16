@@ -20,8 +20,6 @@ class ReviewType extends AbstractType
     
     public function configureOptions(OptionsResolver $resolver)
     {
-        $resolver->setDefaults(array(
-            'data_class'=> Review::class
-        ));
+        $resolver->setDefaults(['data_class' => Review::class]);
     }
 }

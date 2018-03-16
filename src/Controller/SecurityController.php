@@ -21,7 +21,7 @@ class SecurityController extends Controller {
         /* Dernier login entre par l'utilisateur */
         $lastUsername = $authUtils->getLastUsername();
         
-        return $this->render('security/login.html.twig', array(
+        return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
             'error' => $error,
             'langues' => json_decode(Data::langues),
@@ -33,7 +33,7 @@ class SecurityController extends Controller {
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-        ));
+        ]);
         
     }
 }

@@ -16,31 +16,28 @@ class RegistrationController extends Controller
      */
     public function registerAction(Request $request, UserPasswordEncoderInterface $passwordEncoder)
     {
-        // 1) build the form
+        // 1) Creation du formulaire
         $user = new User();
-        $user -> setRoles(array('ROLE_USER'));
+        $user -> setRoles(['ROLE_USER']);
         $form = $this->createForm(UserType::class, $user);
         
-        // 2) handle the submit (will only happen on POST)
+        // 2) Valider le formulaire
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
             
-            // 3) Encode the password (you could also do this via Doctrine listener)
+            // 3) Encoder le mot de passe
             $password = $passwordEncoder->encodePassword($user, $user->getPlainPassword());
             $user->setPassword($password);
             
-            // 4) save the User!
+            // 4) Enregistrer l'utilisateur
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
             $em->flush();
             
-            // ... do any other work - like sending them an email, etc
-            // maybe set a "flash" success message for the user
-            
             return $this->redirectToRoute('index');
         }
         
-        return $this->render('security/registration.html.twig', array(
+        return $this->render('security/registration.html.twig', [
             'form' => $form->createView(),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
@@ -51,7 +48,7 @@ class RegistrationController extends Controller
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
             'topLinks' => json_decode(Data::topLinks)
-            ));
+            ]);
     }
     
    

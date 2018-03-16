@@ -35,11 +35,26 @@ class Review
      */
     private $products;
     
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="reviewUsername", fetch="EXTRA_LAZY")
+     */
+    private $user;
+    
     use TechnicalFields;
     
     public function getId()
     {
         return $this->id;
+    }
+
+    public function getUser()
+    {
+        return $this->user;
+    }
+
+    public function setUser($user)
+    {
+        $this->user = $user;
     }
 
     public function getMessage()

@@ -23,7 +23,7 @@
 	$(document).ready(function(){
 		$("a[name='Newsletter']").click(function(event){
     	    event.preventDefault();
-	        var position = $("#btnNewsletter").offset().top; 
+	        var position = $("#inputNewsletter").offset().top; 
 	        $('body,html').animate({scrollTop: position}, 900);
 	    });
 		
@@ -41,8 +41,6 @@
 		
 	});
 		
-	
-
     </script>
 </head>
 
@@ -213,7 +211,7 @@
 				<!-- /category nav -->
 
 				<!-- menu nav -->
-				{% include 'menuNav.html.twig' %}
+				{% include 'includes/menuNav.html.twig' %}
 				<!-- menu nav -->
 			</div>
 		</div>
@@ -269,7 +267,7 @@
 						<!-- footer social -->
 						<ul class="footer-social">
 						{% for categorieSocial in categorieSocials %}
-							<li><a href="{{ categorieSocial.link }}"><i class="fa {{ categorieSocial.classe }}"></i></a></li>
+							<li><a target="_blank" href="{{ categorieSocial.link }}"><i class="fa {{ categorieSocial.classe }}"></i></a></li>
 						{% endfor %}
 						</ul>
 						<!-- /footer social -->
@@ -289,7 +287,7 @@
 		               		<li><a href="/logout">Logout</a></li>
 		               	{% else %}
 		               		<li><a href="/login">Login</a></li>
-		   					<li><a href="/login">Create an account</a></li>
+		   					<li><a href="/register">Create an account</a></li>
 		   				{% endif %}
 						</ul>
 					</div>
@@ -334,7 +332,7 @@
 					<!-- footer copyright -->
 					<div class="footer-copyright">
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+						Copyright &copy;<script>document.write(new Date().getFullYear());</script> All rights reserved | <a href="/cgv" target="_blank">CGV</a> | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
 						<!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
 					</div>
 					<!-- /footer copyright -->

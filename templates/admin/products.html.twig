@@ -22,8 +22,9 @@
         {{ form_start(form, {'attr':{'class':'clearfix'}}) }}
         	<div class="billing-details admin-products-form">
         		<div class="section-title"><h3 class="title">Register Product</h3></div>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-4 col-sm-4">
                 	<div class="form-group">
+                		{{ form_label(form.nomDelArticle, "Nom de l'article *") }}
                         {{ form_widget(form.nomDelArticle,{'attr':{'class':'input','placeholder':'Article name','maxlength':'50'}}) }}
     				</div>
     				<div class="form-group">
@@ -36,6 +37,7 @@
                         {{ form_widget(form.prixAvant,{'attr':{'class':'input','placeholder':'Price before solde'}}) }}
     				</div>
     				<div class="form-group">
+    				    {{ form_label(form.prixActuel, "Prix de l'article *") }}
                         {{ form_widget(form.prixActuel,{'attr':{'class':'input','placeholder':'Actual Price'}}) }}
     				</div>
     				<div class="form-group">
@@ -45,78 +47,45 @@
                         {{ form_widget(form.color,{'attr':{'class':'input','placeholder':'Choose color'}}) }}
     				</div>
     				<div class="form-group">
+    					{{ form_label(form.prixActuel, "Collection *") }}
                         {{ form_widget(form.collection,{'attr':{'class':'input','placeholder':'Summer / autumn / winter / Spring'}}) }}
     				</div>
                 </div>
-                <div class="col-md-6 col-sm-6">
+                <div class="col-md-4 col-sm-4">
                    <div class="form-group">
-                        {{ form_widget(form.image,{'attr':{'class':'input','placeholder':'Lien de votre image'}}) }}
+                        {{ form_label(form.image, "Lien de l'image *") }}
+                        {{ form_widget(form.image,{'attr':{'class':'input custom-file-input','placeholder':'Lien de votre image'}}) }}
     				</div>
                    <div class="form-group">
                         {{ form_widget(form.marque,{'attr':{'class':'input','placeholder':'Article marque'}}) }}
     				</div>
     				<div class="form-group">
-                        {{ form_widget(form.description,{'attr':{'class':'input','placeholder':'Article description'}}) }}
-    				</div>
-    				<div class="form-group">
-                        {{ form_widget(form.detail,{'attr':{'class':'input','placeholder':'Article détails'}}) }}
-    				</div>
-    				<div class="form-group">
+    					{{ form_label(form.categorie, "Categorie de l'article *") }}
                         {{ form_widget(form.categorie,{'attr':{'class':'input','placeholder':'Watch / Cloths / Bags / Shoes...'}}) }}
     				</div>
     				<div class="form-group">
+    					{{ form_label(form.avaibility, "Description de l'article *") }}
                         {{ form_widget(form.avaibility,{'attr':{'class':'input','placeholder':'Article avaibility 1 / 0'}}) }}
     				</div>
     				<div class="form-group">
                         {{ form_widget(form.countdowndate) }}
     				</div>
                 </div>
+                <div class="col-md-4 col-sm-4">
+                <div class="form-group">
+    					{{ form_label(form.description, "Description de l'article *") }}
+                        {{ form_widget(form.description,{'attr':{'class':'input testy','placeholder':'Article description','rows':'6'}}) }}
+    				</div>
+    				<div class="form-group">
+    					{{ form_label(form.detail, "détails de l'article *") }}
+                        {{ form_widget(form.detail,{'attr':{'class':'input testy','placeholder':'Article détails','rows':'6'}}) }}
+    				</div>
+                
+                </div>
         		<button type="submit" class="primary-btn full">Sign</button><br><br>
         	</div>
         {{ form_end(form) }}
         </div>
-    </div>
-</div>
-<div class="section">
-	<div class="container">
-    		<div class="row">
-        		<div class="form-group">{% if listeProduits is not null %}
-        		{% for produit in listeProduits %}
-        			<div class="col-md-3 col-sm-6 col-xs-6">
-        				<div class="product product-single">
-                            <div class="product-thumb">
-                            <div class="product-label">
-                                {% if produit.status is not null %}<span>{{ produit.status }}</span>{% endif %}
-                                {% if produit.soldes is not null %}<span class="sale">{{ produit.soldes }}%</span>{% endif %}
-                            </div>
-                            <ul class="product-countdown">
-								<li><span>00 H</span></li>
-								<li><span>00 M</span></li>
-								<li><span>00 S</span></li>
-							</ul>
-                              <button class="main-btn quick-view"><i class="fa fa-search-plus"></i> Quick view</button>
-                                {% if produit.image is not null %}<img src="{{ asset(produit.image)}}" alt="">{% endif %}
-                            </div>
-                            <div class="product-body">
-                              <h3 class="product-price">${{ produit.prixActuel }}{% if produit.prixAvant is not null %}<del class="product-old-price">${{ produit.prixAvant }}</del>{% endif %}</h3>
-                              <div class="product-rating">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-o empty"></i>
-                              </div>
-                              <h2 class="product-name"><a href="/product-page/{{ produit.id  }}">{{ produit.nomDelArticle }}</a></h2>
-                              <div class="product-btns">
-                                <a href="/admin/products-delete/{{ produit.id }}"><button class="main-btn icon-btn"><i class="fa fa-ban"></i></a></button>
-                                <a href="/admin/products/{{ produit.id }}"><button class="main-btn icon-btn"><i class="fa fa-cog"></i></a></button>
-                              </div>
-                            </div>
-                         </div>
-            		</div>
-            		{% endfor %}{% endif %}
-        		</div>
-    		</div>
     </div>
 </div>
 {% endblock %}
