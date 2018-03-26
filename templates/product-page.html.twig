@@ -35,29 +35,6 @@
 							<div class="product-view">
 								<img src="{{ asset('img/'~produit.image.url)}}" alt="">
 							</div>
-							<div class="product-view">
-								<img src="/img/main-product02.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="/img/main-product03.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="/img/main-product04.jpg" alt="">
-							</div>
-						</div>
-						<div id="product-view">
-							<div class="product-view">
-								<img src="/img/thumb-product01.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="/img/thumb-product02.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="/img/thumb-product03.jpg" alt="">
-							</div>
-							<div class="product-view">
-								<img src="/img/thumb-product04.jpg" alt="">
-							</div>
 						</div>
 					</div>
 					<div class="col-md-6">
@@ -103,9 +80,9 @@
 							    {% else %}
 								<div class="qty-input">
 									<span class="text-uppercase">QTY: </span>
-									<input class="input" type="number">
+									<input class="input" id="inputEditProduct" type="number" min="0" value="1">
 								</div>
-								<button class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
+								<button id="addToCaddie" data-product_id="{{ produit.id }}" class="primary-btn add-to-cart"><i class="fa fa-shopping-cart"></i> Add to Cart</button>
 								{% endif %}
 								<div class="pull-right">
 									{% if is_granted('ROLE_ADMIN') %}
@@ -124,7 +101,7 @@
 							<ul class="tab-nav">
 								<li class="active"><a data-toggle="tab" href="#tab1">Description</a></li>
 								<li><a data-toggle="tab" href="#tab2">Details</a></li>
-								<li><a data-toggle="tab" href="#tab3">Reviews (3)</a></li>
+								<li><a data-toggle="tab" href="#tab3">Reviews</a></li>
 							</ul>
 							<div class="tab-content">
 								<div id="tab1" class="tab-pane fade in active">

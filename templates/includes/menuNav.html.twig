@@ -3,37 +3,11 @@
   <ul class="menu-list">
     <li><a href="{{ path('index') }}">{% trans %}Home{% endtrans %}</a></li>
     <li><a href="{{ path('products') }}">{% trans %}Shop{% endtrans %}</a></li>
-    <li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{% trans %}Women{% endtrans %} <i class="fa fa-caret-down"></i></a>
-      <div class="custom-menu">
-        <div class="row">
-          <div class="col-md-4">
-            <ul class="list-links">
-              <li><a href="{{ path('index') }}">Clothing</a></li>
-              <li><a href="{{ path('index') }}">Phones & Accessories</a></li>
-              <li><a href="{{ path('index') }}">Jewelry & Watches</a></li>
-              <li><a href="{{ path('index') }}">Bags & Shoes</a></li>
-            </ul>
-            <hr class="hidden-md hidden-lg">
-          </div>
-        </div>
-      </div>
-    </li>
-    <li class="dropdown mega-dropdown full-width"><a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">{% trans %}Men{% endtrans %} <i class="fa fa-caret-down"></i></a>
-      <div class="custom-menu">
-        <div class="row">
-          <div class="col-md-4">
-            <ul class="list-links">
-              <li><a href="{{ path('index') }}">Clothing</a></li>
-              <li><a href="{{ path('index') }}">Phones & Accessories</a></li>
-              <li><a href="{{ path('index') }}">Jewelry & Watches</a></li>
-              <li><a href="{{ path('index') }}">Bags & Shoes</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-    </li>
+    <li><a href="{{ path('women') }}">{% trans %}Women{% endtrans %}</a></li>
+    <li><a href="{{ path('men') }}">{% trans %}Men{% endtrans %}</a></li>
   	{% if is_granted('ROLE_ADMIN') %}
   	<li><a style="background-color:#F8694A;" href="{{ path('admin') }}">{% trans %}Admin{% endtrans %}</a></li>
   	{% endif %}
+  	{% include 'includes/card.html.twig' %}
   </ul>
 </div>

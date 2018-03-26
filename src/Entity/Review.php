@@ -62,8 +62,6 @@ class Review
         return $this->message;
     }
 
-
-
     public function setId($id)
     {
         $this->id = $id;
@@ -74,9 +72,6 @@ class Review
         $this->message = $message;
     }
 
-
-
-
     public function getProducts()
     {
         return $this->products;
@@ -86,8 +81,4 @@ class Review
     {
         $this->products = $products;
     }
-
-
-    
-   
 }

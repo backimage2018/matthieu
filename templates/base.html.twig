@@ -16,35 +16,20 @@
 	<link type="text/css" rel="stylesheet" href="{{ asset('css/nouislider.min.css') }}">
 	<link rel="stylesheet" href="{{ asset('/css/font-awesome.min.css') }}">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="{{ asset('js/ajax.js') }}"></script>
 	<link type="text/css" rel="stylesheet" href="{{ asset('css/style.css') }}">
     {% endblock %}
     <script>
-
-	$(document).ready(function(){
-		$("a[name='Newsletter']").click(function(event){
-    	    event.preventDefault();
-	        var position = $("#inputNewsletter").offset().top; 
-	        $('body,html').animate({scrollTop: position}, 900);
-	    });
-		
-		$('#btnNewsletter').click(function(event){
-	        event.preventDefault();
-	        console.log('coucou')
-	        $.ajax({
-	        	type:'post',
-	        	url:'/newsletter',
-	        	data:{email:$('#inputNewsletter').val()}
-	        }).done(function(result){
-	        	$('#inputNewsletter').html(result);	
-	        });
-	    });
-		
+    /* Fait descendre la barre de navigation lors du scroll de la page */
+	document.addEventListener('DOMContentLoaded', function () {
+		window.onscroll = function () {
+			document.getElementById("navigation").className = (window.pageYOffset > 130) ? "menu-nav-scroll" : "nothing";
+		};
 	});
-		
     </script>
 </head>
 
-<body data-spy="scroll">
+<body>
 	<!-- HEADER -->
 	{% block header %}
 	<header>
@@ -133,50 +118,6 @@
 							</ul>
 						</li>
 						<!-- /Account -->
-
-						<!-- Cart -->
-						<li class="header-cart dropdown default-dropdown">
-							<a class="dropdown-toggle" data-toggle="dropdown" aria-expanded="true">
-								<div class="header-btns-icon">
-									<i class="fa fa-shopping-cart"></i>
-									<span class="qty">3</span>
-								</div>
-								<strong class="text-uppercase">My Cart:</strong>
-								<br>
-								<span>35.20$</span>
-							</a>
-							<div class="custom-menu">
-								<div id="shopping-cart">
-									<div class="shopping-cart-list">
-										<div class="product product-widget">
-											<div class="product-thumb">
-												<img src="./img/thumb-product01.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="{{ path('index') }}">Product Name Goes Here</a></h2>
-											</div>
-											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
-										</div>
-										<div class="product product-widget">
-											<div class="product-thumb">
-												<img src="./img/thumb-product01.jpg" alt="">
-											</div>
-											<div class="product-body">
-												<h3 class="product-price">$32.50 <span class="qty">x3</span></h3>
-												<h2 class="product-name"><a href="{{ path('index') }}">Product Name Goes Here</a></h2>
-											</div>
-											<button class="cancel-btn"><i class="fa fa-trash"></i></button>
-										</div>
-									</div>
-									<div class="shopping-cart-btns">
-										<button class="main-btn">View Cart</button>
-										<button class="primary-btn">Checkout <i class="fa fa-arrow-circle-right"></i></button>
-									</div>
-								</div>
-							</div>
-						</li>
-						<!-- /Cart -->
 
 						<!-- Mobile nav toggle-->
 						<li class="nav-toggle">
@@ -319,6 +260,7 @@
 								<input id="inputNewsletter" class="input" placeholder="Enter Email Address">
 							</div>
 							<button id="btnNewsletter" class="primary-btn">Join Newslatter</button>
+							<div class="newsletterSucces"></div>
 						</form>
 					</div>
 				</div>
@@ -347,7 +289,6 @@
 
 	{% block javascripts %}
 	<!-- jQuery Plugins -->
-	
 	
 	<script src="{{ asset('js/bootstrap.min.js') }}"></script>
 	<script src="{{ asset('js/slick.min.js') }}"></script>

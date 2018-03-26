@@ -1,0 +1,14 @@
+{% for caddie in product %}
+      {% set total = total + caddie.product.prixActuel * caddie.quantity %}
+      <tr>
+      <td class="thumb"><img src="/img/{{ caddie.product.image.url }}" alt=""></td>
+      <td class="details">
+      	<a href="{{ path('index') }}">{{ caddie.product.nomdelarticle }}</a>
+      </td>
+      <td class="price text-center"><strong>$ {{ caddie.product.prixActuel }}</strong><br>{% if caddie.product.prixAvant is not null %}<del class="font-weak"><small>$ {{ caddie.product.prixAvant }}</small></del></td>{% endif %}
+      <td class="qty text-center"><input id="inputEditProduct_{{ caddie.product.id }}" class="input" min="1" type="number" value="{{ caddie.quantity }}"></td>
+      <td class="text-center"><button data-product_id="{{ caddie.product.id }}" class="main-btn icon-btn editProductCaddie"><i class="fa fa-edit"></i></button></td>
+      <td class="total text-center"><strong class="primary-color">${{ caddie.product.prixActuel * caddie.quantity }}</strong></td>
+      <td class="text-right"><button data-product_id="{{ caddie.product.id }}" class="main-btn icon-btn removeProductCaddie"><i class="fa fa-close"></i></button></td>
+   </tr>
+{% endfor %}

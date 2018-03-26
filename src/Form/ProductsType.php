@@ -30,7 +30,8 @@ class ProductsType extends AbstractType
             ->add('marque', ChoiceType::class, ['choices' => ['Choose the brand' => null,'E-SHOP' => 'E-SHOP','DOMINA' => 'DOMINA','SWAGGY' => 'SWAGGY','CRITICAL FAIL' => 'CRITICAL FAIL']])
             ->add('description', TextareaType::class)
             ->add('detail', TextareaType::class)
-            ->add('categorie', ChoiceType::class, ['choices' => ['Choose the category' => null,'Bags' => 'Bags','Watch' => 'Watch','Shoes' => 'Shoes','Divers' => 'Divers']])
+            ->add('sexe', ChoiceType::class, ['choices' => ['mixte' => 'mixte', 'men' => 'men', 'women' => 'women']])
+            ->add('categorie', ChoiceType::class, ['choices' => ['Choose the category' => null,'Bags' => 'Bags','Watch' => 'Watch','Shoes' => 'Shoes','Accessories' => 'Accessories','Phones' => 'Phones','Jewelry' => 'Jewelry','Consumer' => 'Consumer','Electronics' => 'Electronics',]])
             ->add('avaibility', ChoiceType::class, ['choices' => ['Disponible' => true,'Indisponible' => null]])
             ->add('countdowndate', DateTimeType::class, ['required' => false,'placeholder' => 'Select a countdown']);
     }

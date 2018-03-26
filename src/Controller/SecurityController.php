@@ -1,6 +1,7 @@
 <?php
 namespace App\Controller;
 
+use App\Entity\Caddie;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Annotation\Route;
@@ -21,8 +22,13 @@ class SecurityController extends Controller {
         /* Dernier login entre par l'utilisateur */
         $lastUsername = $authUtils->getLastUsername();
         
+        $caddies = $this->getDoctrine()
+        ->getRepository(Caddie::class)
+        ->findAll();
+        
         return $this->render('security/login.html.twig', [
             'last_username' => $lastUsername,
+            'caddies' => $caddies,
             'error' => $error,
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),

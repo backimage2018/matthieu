@@ -68,6 +68,10 @@
                         {{ form_widget(form.avaibility,{'attr':{'class':'input','placeholder':'Article avaibility 1 / 0'}}) }}
     				</div>
     				<div class="form-group">
+    					{{ form_label(form.sexe, "A qui est destiné l'article *") }}
+                        {{ form_widget(form.sexe,{'attr':{'class':'input'}}) }}
+    				</div>
+    				<div class="form-group">
                         {{ form_widget(form.countdowndate) }}
     				</div>
                 </div>
@@ -80,6 +84,7 @@
     					{{ form_label(form.detail, "détails de l'article *") }}
                         {{ form_widget(form.detail,{'attr':{'class':'input testy','placeholder':'Article détails','rows':'6'}}) }}
     				</div>
+    				
                 
                 </div>
         		<button type="submit" class="primary-btn full">Sign</button><br><br>

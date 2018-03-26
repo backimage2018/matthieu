@@ -143,35 +143,35 @@ class Data {
     
     const categorieListes = '[
             {
-                "link":"/",
+                "link":"/products/women/cloth",
                 "categorie":"Women\'s Clothing"
             },
             {
-                "link":"/",
+                "link":"/products/men/cloth",
                 "categorie":"Men\'s Clothing"
             },
             {
-                "link":"/",
+                "link":"/products/phones-accessories",
                 "categorie":"Phones & Accessories"
             },
             {
-                "link":"/",
+                "link":"/products/consumer-office",
                 "categorie":"Consumer & Office"
             },
             {
-                "link":"/",
-                "categorie":"Consumer Electronics"
+                "link":"/products/consumer-electronic",
+                "categorie":"Consumer & Electronics"
             },
             {
-                "link":"/",
+                "link":"/products/jewelry-watche",
                 "categorie":"Jewelry & Watches"
             },
             {
-                "link":"/",
+                "link":"/products/bags-shoes",
                 "categorie":"Bags & Shoes"
             },
             {
-                "link":"/",
+                "link":"/products",
                 "categorie":"View All"
             }
          ]';
@@ -220,8 +220,7 @@ class Data {
          ]';
     
     const aboutUs = '{"msg": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent congue in tortor eget laoreet. Morbi commodo mi elit.Pellentesque interdum porttitor feugiat."}';
-    
-    
+      
     const reviews = '[
             {
                 "user" : "John",

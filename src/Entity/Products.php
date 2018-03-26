@@ -14,8 +14,6 @@ use Doctrine\DBAL\Types\DateTimeType;
 
 class Products
 {
-
-
     /**
      * @ORM\Id
      * @ORM\Column(type="integer")
@@ -42,6 +40,11 @@ class Products
      * @ORM\Column(type="string", nullable=true ,length=10)
      */
     private $soldes;
+    
+    /**
+     * @ORM\Column(type="string", nullable=true ,length=10)
+     */
+    private $sexe;
 
     /**
      * @ORM\Column(type="string", nullable=true ,length=10)
@@ -103,7 +106,12 @@ class Products
      * @ORM\Column(type="boolean", nullable=true)
      */
     private $avaibility;
-
+    
+    /**
+     * @ORM\OneToMany(targetEntity="Caddie", mappedBy="product")
+     */
+    private $caddie;
+    
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
@@ -115,6 +123,26 @@ class Products
 
 
     
+    public function getCaddie()
+    {
+        return $this->caddie;
+    }
+
+    public function setCaddie($caddie)
+    {
+        $this->caddie = $caddie;
+    }
+
+    public function getSexe()
+    {
+        return $this->sexe;
+    }
+
+    public function setSexe($sexe)
+    {
+        $this->sexe = $sexe;
+    }
+
     public function getId()
     {
         return $this->id;

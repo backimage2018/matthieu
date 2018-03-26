@@ -1,0 +1,12 @@
+{% for caddie in list %}
+<div class="product product-widget">
+  <div class="product-thumb">
+    <img src="/img/{{ caddie.product.image.url }}" alt="{{ caddie.product.nomdelarticle }}">
+  </div>
+  <div class="product-body">
+    <h3 class="product-price">${{ caddie.product.prixActuel }} <span class="qty">x{{ caddie.quantity }}</span></h3>
+    <h2 class="product-name"><a href="{{ path('product_page', { "id":caddie.product.id }) }}">{{ caddie.product.nomdelarticle }}</a></h2>
+  </div>
+  <button data-product_id="{{ caddie.product.id }}" class="cancel-btn removeProductCaddie"><i class="fa fa-trash"></i></button>
+</div>
+{% endfor %}

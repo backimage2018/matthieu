@@ -62,6 +62,21 @@ class User implements UserInterface, \Serializable
      */
     private $isActive;
     
+    /**
+     * @ORM\OneToMany(targetEntity="Caddie", mappedBy="user")
+     */
+    private $caddie;
+    
+    public function getCaddie()
+    {
+        return $this->caddie;
+    }
+
+    public function setCaddie($caddie)
+    {
+        $this->caddie = $caddie;
+    }
+
     public function getReviewUsername()
     {
         return $this->reviewUsername;

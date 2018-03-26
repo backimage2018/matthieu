@@ -3,9 +3,7 @@ namespace App\Controller;
 
 use App\Form\ProductsType;
 use App\Entity\Products;
-use App\Form\ReviewType;
 use App\Entity\Review;
-use App\Entity\TechnicalFields;
 use App\Repository\ProductsRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,9 +17,23 @@ class ProductsController extends Controller
 {
 
     /**
+     * @var ProductsRepository $productsRepository
+     */
+    private $productsRepository;
+
+    /**
+     * @param ProductsRepository $productsRepository
+     */
+    public function __construct(ProductsRepository $productsRepository)
+    {
+        $this->productsRepository = $productsRepository;
+    }
+
+
+    /**
      * @Route("/admin/products/{id}", name="admin_products_load", requirements={"id" = "\d+"})
      */
-    public function loadProducts(Request $request, $id, ProductsRepository $productsRepository)
+    public function loadProducts(Request $request, $id)
     {
         $param = [];
 
@@ -82,29 +94,11 @@ class ProductsController extends Controller
         return $this->render('admin/products.html.twig', ['form' => $form->createView()]);
     }
 
-
     /**
      * @Route("/admin/products-delete/{id}", name="admin_products_delete", requirements={"id" = "\d+"})
      */
     public function deleteProducts(Request $request, $id)
     {
-        // $param = [];
-        // $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAll();
-        // $products = $this->getDoctrine()
-        // ->getRepository(Products::class)
-        // ->find($id);
-        // $param["products"] = $products;
-        // $form = $this->createForm(ProductsType::class, $products);
-        // $form->handleRequest($request);
-        // if ($form->isSubmitted() && $form->isValid()) {
-        // $em = $this->getDoctrine()->getManager();
-        // $em->remove($products);
-        // $em->flush();
-        // return new Response("Deleted");
-        // }
-        // $param["form"] = $form->createView();
-        // $param["listeProduits"] = $listeProduits;
-        // return $this->render("admin/products.html.twig", $param);
         $product = $this->getDoctrine()
             ->getRepository(Products::class)
             ->find($id);
@@ -175,6 +169,253 @@ class ProductsController extends Controller
         //return new Response('coucou');
         return $this->redirectToRoute('product_page', ['id' => $id]);
     }
+     
+    /**
+     * @Route("/products", name="products")
+     */
+    
+    function products() {
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAll();
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/men", name="men")
+     */
+    function productsForMen() {
+        
+        $men = 'men';
+        $mixte = 'mixte';
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsForMen($men, $mixte);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/women", name="women")
+     */
+    function productsForWomen() {
+        $women = 'women';
+        $mixte = 'mixte';        
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsForWomen($women, $mixte);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/women/cloth", name="women_cloth")
+     */
+    function productsForWomenCloth() {
+        $women = 'women';
+        $cloth = 'cloth';
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsWomenCloth($women, $cloth);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/men/cloth", name="men_cloth")
+     */
+    function productsForMenCloth() {
+        
+        $men = 'men';
+        $cloth = 'cloth';
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsMenCloth($men, $cloth);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/phones-accessories", name="phones_accessories")
+     */
+    function productsForPhoneAndAccessorie() {
+        
+        $phone = 'phone';
+        $accessorie = 'accessorie';
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsMenCloth($phone, $accessorie);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/consumer-office", name="consumer_office")
+     */
+    function productsForConsumerAndOffice() {
+        
+        $consumer = 'consumer';
+        $office = 'office';
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsConsumerAndOffice($consumer, $office);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/consumer-electronic", name="consumer_electronic")
+     */
+    function productsForConsumerAndElectronic() {
+        
+        $consumer = 'consumer';
+        $electronic = 'electronic';
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsConsumerElectronic($consumer, $electronic);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/jewelry-watche", name="jewelry_watche")
+     */
+    function productsForJewelryAndWatche() {
+        
+        $jewelry = 'jewelry';
+        $watche = 'watche';
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsConsumerElectronic($jewelry, $watche);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
+    /**
+     * @Route("/products/bags-shoes", name="bags_shoes")
+     */
+    function productsForBagsAndShoes() {
+        
+        $bags = 'bags';
+        $shoes = 'shoes';
+        $listeProduits = $this-> getDoctrine()
+        -> getRepository(Products::class)
+        -> findAllProductsBagsAndShoes($bags, $shoes);
+        
+        return $this->render('products.html.twig', [
+            'listeProduits' => $listeProduits,
+            'topLinks' => json_decode(Data::topLinks),
+            'langues' => json_decode(Data::langues),
+            'moneys' => json_decode(Data::moneys),
+            'categorieSearchs' => json_decode(Data::categorieSearchs),
+            'categorieListes' => json_decode(Data::categorieListes),
+            'categorieSocials' => json_decode(Data::categorieSocials),
+            'myAccounts' => json_decode(Data::myAccounts),
+            'footerServices' => json_decode(Data::footerServices),
+            'welcome' => json_decode(Data::welcome)
+        ]);
+    }
+    
 }
 
 

@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Form\UserType;
+use App\Entity\Caddie;
 use App\Entity\User;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -35,9 +36,14 @@ class RegistrationController extends Controller
             $em->flush();
             
             return $this->redirectToRoute('index');
+            
         }
+        $caddies = $this->getDoctrine()
+        ->getRepository(Caddie::class)
+        ->findAll();
         
         return $this->render('security/registration.html.twig', [
+            'caddies' => $caddies,
             'form' => $form->createView(),
             'langues' => json_decode(Data::langues),
             'moneys' => json_decode(Data::moneys),
