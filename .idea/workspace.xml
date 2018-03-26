@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="5de1e082-ca4a-4d9e-a84b-14922740c139" name="Default" comment="">
+    <list default="true" id="5de1e082-ca4a-4d9e-a84b-14922740c139" name="Default" comment="Eshop 1.0&#10;Pannier OK">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -294,7 +294,7 @@
       <updated>1520704935833</updated>
       <workItem from="1520704937691" duration="4872000" />
       <workItem from="1522056683717" duration="539000" />
-      <workItem from="1522057240662" duration="5495000" />
+      <workItem from="1522057240662" duration="6477000" />
     </task>
     <task id="LOCAL-00001" summary="Eshop 1.0&#10;Pannier OK">
       <created>1522058550632</created>
@@ -314,7 +314,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="10906000" />
+    <option name="totallyTimeSpent" value="11888000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
