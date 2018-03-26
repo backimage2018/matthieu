@@ -18,14 +18,12 @@ class Caddie
      * @ORM\Column(type="integer")
      * @ORM\GeneratedValue(strategy="AUTO")
      */
-    
     private $id;
     
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
      */
-    
     private $quantity;
     
     /**
@@ -84,8 +82,4 @@ class Caddie
     {
         $this->quantity = $quantity;
     }
-
-    
-   
-    
 }

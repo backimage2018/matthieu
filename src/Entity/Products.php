@@ -115,14 +115,10 @@ class Products
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-
     private $countdowndate;
-
 
     use TechnicalFields;
 
-
-    
     public function getCaddie()
     {
         return $this->caddie;
@@ -312,5 +308,4 @@ class Products
     {
         $this->reviews = $reviews;
     }
-    
 }

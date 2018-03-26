@@ -59,11 +59,4 @@ class Image {
         $this->url = $url;
         return $this;
     }
-
-    
-    
-
-
-    
-
 }

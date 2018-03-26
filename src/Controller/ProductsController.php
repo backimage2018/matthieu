@@ -15,50 +15,26 @@ use App\Entity\Image;
 
 class ProductsController extends Controller
 {
-
-    /**
-     * @var ProductsRepository $productsRepository
-     */
-    private $productsRepository;
-
-    /**
-     * @param ProductsRepository $productsRepository
-     */
-    public function __construct(ProductsRepository $productsRepository)
-    {
-        $this->productsRepository = $productsRepository;
-    }
-
-
     /**
      * @Route("/admin/products/{id}", name="admin_products_load", requirements={"id" = "\d+"})
      */
     public function loadProducts(Request $request, $id)
     {
         $param = [];
-
         $products = $this->getDoctrine()->getRepository(Products::class)->find($id);
-
         $filename = $products->getImage()->getUrl();
         $products->getImage()->setUrlName($filename);
-        
         $file = new File($this->getParameter('upload_directory').'/'.$filename);
-            
         $products->getImage()->setUrl($file);
-        
-        $param['image'] = $products->getImage()->getUrl()->getFileName();
+        $param["image"] = $products->getImage()->getUrl()->getFileName();
         $param["products"] = $products;
-        
         $form = $this->createForm(ProductsType::class, $products);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $file = $products->getImage()->getUrl();
             $filename = $file->getClientOriginalName();
-
             $file->move($this->getParameter('upload_directory'), $filename);
             $products->getImage()->setUrl($filename);
-            
             $em = $this->getDoctrine()->getManager();
             $em->persist($products);
             $em->flush();
@@ -76,16 +52,12 @@ class ProductsController extends Controller
         $products = new Products();
         $imageobj = new Image();
         $form = $this->createForm(ProductsType::class, $products);
-
         $form->handleRequest($request);
-        
         if ($form->isSubmitted() && $form->isValid()) {
-            
             $file = $products->getImage()->getUrl();
             $filename = $file->getClientOriginalName();
             $file->move($this->getParameter('upload_directory'), $filename);
             $products->getImage()->setUrl($filename);
-            
             $em = $this->getDoctrine()->getManager();
             $em->persist($products);
             $em->flush();
@@ -93,30 +65,23 @@ class ProductsController extends Controller
         }
         return $this->render('admin/products.html.twig', ['form' => $form->createView()]);
     }
-
     /**
      * @Route("/admin/products-delete/{id}", name="admin_products_delete", requirements={"id" = "\d+"})
      */
     public function deleteProducts(Request $request, $id)
     {
-        $product = $this->getDoctrine()
-            ->getRepository(Products::class)
-            ->find($id);
+        $product = $this->getDoctrine()->getRepository(Products::class)->find($id);
         $em = $this->getDoctrine()->getManagerForClass(Products::class);
         $em->remove($product);
         $em->flush();
         return new Response("Deleted");
     }
-
     /**
      * @Route("/product-page/{id}", name="product_page" ,requirements = {"id" = "\d+"})
      */
     function productPage(Request $request, $id)
     {
-        $produit = $this->getDoctrine()
-            ->getRepository(Products::class)
-            ->find($id);
-        
+        $produit = $this->getDoctrine()->getRepository(Products::class)->find($id);
         return $this->render('product-page.html.twig', [
             'produit' => $produit,
             'langues' => json_decode(Data::langues),
@@ -132,7 +97,6 @@ class ProductsController extends Controller
     }
 
     /**
-     *
      * @return string
      */
     private function generateUniqueFileName()
@@ -169,16 +133,11 @@ class ProductsController extends Controller
         //return new Response('coucou');
         return $this->redirectToRoute('product_page', ['id' => $id]);
     }
-     
     /**
      * @Route("/products", name="products")
      */
-    
     function products() {
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAll();
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAll();
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -192,18 +151,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/men", name="men")
      */
     function productsForMen() {
-        
         $men = 'men';
         $mixte = 'mixte';
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsForMen($men, $mixte);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsForMen($men, $mixte);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -217,17 +171,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/women", name="women")
      */
     function productsForWomen() {
         $women = 'women';
         $mixte = 'mixte';        
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsForWomen($women, $mixte);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsForWomen($women, $mixte);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -241,17 +191,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/women/cloth", name="women_cloth")
      */
     function productsForWomenCloth() {
         $women = 'women';
         $cloth = 'cloth';
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsWomenCloth($women, $cloth);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsWomenCloth($women, $cloth);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -265,18 +211,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/men/cloth", name="men_cloth")
      */
     function productsForMenCloth() {
-        
         $men = 'men';
         $cloth = 'cloth';
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsMenCloth($men, $cloth);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsMenCloth($men, $cloth);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -290,18 +231,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/phones-accessories", name="phones_accessories")
      */
     function productsForPhoneAndAccessorie() {
-        
         $phone = 'phone';
         $accessorie = 'accessorie';
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsMenCloth($phone, $accessorie);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsMenCloth($phone, $accessorie);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -315,18 +251,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/consumer-office", name="consumer_office")
      */
     function productsForConsumerAndOffice() {
-        
         $consumer = 'consumer';
         $office = 'office';
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsConsumerAndOffice($consumer, $office);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsConsumerAndOffice($consumer, $office);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -340,18 +271,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/consumer-electronic", name="consumer_electronic")
      */
     function productsForConsumerAndElectronic() {
-        
         $consumer = 'consumer';
         $electronic = 'electronic';
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsConsumerElectronic($consumer, $electronic);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsConsumerElectronic($consumer, $electronic);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -365,18 +291,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/jewelry-watche", name="jewelry_watche")
      */
     function productsForJewelryAndWatche() {
-        
         $jewelry = 'jewelry';
         $watche = 'watche';
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsConsumerElectronic($jewelry, $watche);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsConsumerElectronic($jewelry, $watche);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -390,18 +311,13 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
     /**
      * @Route("/products/bags-shoes", name="bags_shoes")
      */
     function productsForBagsAndShoes() {
-        
         $bags = 'bags';
         $shoes = 'shoes';
-        $listeProduits = $this-> getDoctrine()
-        -> getRepository(Products::class)
-        -> findAllProductsBagsAndShoes($bags, $shoes);
-        
+        $listeProduits = $this-> getDoctrine()-> getRepository(Products::class)-> findAllProductsBagsAndShoes($bags, $shoes);
         return $this->render('products.html.twig', [
             'listeProduits' => $listeProduits,
             'topLinks' => json_decode(Data::topLinks),
@@ -415,7 +331,6 @@ class ProductsController extends Controller
             'welcome' => json_decode(Data::welcome)
         ]);
     }
-    
 }
 
 

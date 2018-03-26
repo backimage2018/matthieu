@@ -57,6 +57,7 @@
                         {{ form_widget(form.image,{'attr':{'class':'input custom-file-input','placeholder':'Lien de votre image'}}) }}
     				</div>
                    <div class="form-group">
+                       	{{ form_label(form.image, "Marque du l'article *") }}
                         {{ form_widget(form.marque,{'attr':{'class':'input','placeholder':'Article marque'}}) }}
     				</div>
     				<div class="form-group">
@@ -84,8 +85,6 @@
     					{{ form_label(form.detail, "détails de l'article *") }}
                         {{ form_widget(form.detail,{'attr':{'class':'input testy','placeholder':'Article détails','rows':'6'}}) }}
     				</div>
-    				
-                
                 </div>
         		<button type="submit" class="primary-btn full">Sign</button><br><br>
         	</div>
@@ -94,7 +93,6 @@
     </div>
 </div>
 {% endblock %}
-
 {% block footer %}{% endblock %}
 {# JAVASCRIPT #}
 

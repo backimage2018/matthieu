@@ -31,7 +31,6 @@ class Newsletter
     
     use TechnicalFields;
     
-    
     public function getId()
     {
         return $this->id;
@@ -51,5 +50,4 @@ class Newsletter
     {
         $this->email = $email;
     }
-    
 }
