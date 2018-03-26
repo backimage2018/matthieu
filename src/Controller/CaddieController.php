@@ -132,7 +132,7 @@ class CaddieController extends Controller
             'myAccounts' => json_decode(Data::myAccounts),
             'footerServices' => json_decode(Data::footerServices),
             'welcome' => json_decode(Data::welcome),
-            'topLinks' => json_decode(Data::topLinks)
+            'topLinks' => json_decode(Data::topLinks)  
         ]);
     }
     /**
